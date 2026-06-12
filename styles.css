@@ -1,0 +1,415 @@
+:root {
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --secondary: #10B981;
+    --bg-light: #F9FAFB;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-main: #111827;
+    --text-muted: #6B7280;
+    --border: #E5E7EB;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Auth Screen */
+#auth-screen {
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
+}
+
+.auth-card {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.auth-card h1 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.auth-card p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.role-selector {
+    display: flex;
+    background: var(--bg-light);
+    border-radius: 0.75rem;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    background: transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+
+.role-btn.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.primary-btn, .secondary-btn {
+    width: 100%;
+    padding: 0.875rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    background: white;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+.secondary-btn:hover {
+    background: var(--bg-light);
+}
+
+/* Main Screen */
+#main-screen {
+    position: relative;
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.dashboard-card {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 420px;
+    background: var(--card-bg);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.dashboard-card::-webkit-scrollbar {
+    width: 6px;
+}
+.dashboard-card::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 3px;
+}
+
+.dashboard-card.hidden {
+    display: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+}
+
+.header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.logout-btn:hover {
+    color: #EF4444;
+}
+
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: block;
+}
+
+/* Vehicle Selection */
+.section-title {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+.vehicle-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+.vehicle-card {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 1rem;
+    background: var(--bg-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.vehicle-card:hover {
+    background: #E5E7EB;
+}
+.vehicle-card.active {
+    border-color: var(--primary);
+    background: rgba(79, 70, 229, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1);
+}
+.v-icon {
+    font-size: 2.2rem;
+    margin-right: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+.v-details {
+    flex: 1;
+}
+.v-details h4 {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 0.15rem;
+}
+.v-details p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.v-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+.fare-final {
+    text-align: center;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.fare-final strong {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+/* Status and Progress */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-light);
+    border-radius: 4px;
+    margin: 1.25rem 0;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 1s ease-in-out;
+}
+
+.driver-info {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 1.25rem;
+    background: var(--bg-light);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.status-indicator.online {
+    background-color: var(--secondary);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem 0;
+    font-style: italic;
+    background: var(--bg-light);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+.request-card {
+    border: 1px solid var(--primary);
+    background: rgba(79, 70, 229, 0.05);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin-top: 1rem;
+}
+
+.request-card h4 {
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+}
+
+.request-card p {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Leaflet map overrides */
+.leaflet-control-attribution {
+    display: none;
+}
+
+/* Custom Vehicle Marker for Map (Active Ride) */
+.vehicle-marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    background: white;
+    border-radius: 50%;
+    width: 40px !important;
+    height: 40px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 3px solid var(--primary);
+    transition: transform 0.3s ease;
+}
+
+/* Idle Roaming Vehicle Markers */
+.idle-vehicle-marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 32px !important;
+    height: 32px !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: 2px solid var(--border);
+    transition: all 0.2s linear; /* Smooth CSS movement fallback */
+}
+
+/* Searching Animation Pings */
+.pinging {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 10px rgba(79, 70, 229, 0.3) !important;
+    transform: scale(1.2) !important;
+    z-index: 1000 !important;
+}

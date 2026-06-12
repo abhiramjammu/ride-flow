@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideFlow - Premium Ride Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div id="app">
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="screen active">
+            <div class="auth-card">
+                <h1>Welcome to RideFlow India</h1>
+                <p>Your premium ride booking experience</p>
+                
+                <div class="role-selector">
+                    <button class="role-btn active" data-role="user">Rider</button>
+                    <button class="role-btn" data-role="driver">Driver</button>
+                </div>
+
+                <form id="login-form">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="primary-btn">Sign In & Access Location</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Screen -->
+        <div id="main-screen" class="screen">
+            <div id="map-container"></div>
+            
+            <!-- User Dashboard -->
+            <div id="user-dashboard" class="dashboard-card hidden">
+                <div class="header">
+                    <h2>Book a Ride</h2>
+                    <button class="logout-btn">Logout</button>
+                </div>
+                
+                <div id="booking-form" class="panel active">
+                    <div class="input-group">
+                        <label>Pickup Location</label>
+                        <input type="text" id="pickup" placeholder="Getting current location..." readonly>
+                    </div>
+                    <div class="input-group">
+                        <label>Dropoff Location</label>
+                        <input type="text" id="dropoff" placeholder="E.g., Connaught Place, New Delhi">
+                    </div>
+                    
+                    <button id="calculate-btn" class="secondary-btn">Find Vehicles</button>
+                    
+                    <div id="vehicle-options" class="hidden">
+                        <h3 class="section-title">Select Vehicle</h3>
+                        <div class="vehicle-selection">
+                            <div class="vehicle-card active" data-type="car" data-multiplier="18">
+                                <div class="v-icon">🚗</div>
+                                <div class="v-details">
+                                    <h4>Prime Sedan</h4>
+                                    <p>Comfy & spacious</p>
+                                </div>
+                                <div class="v-price" id="price-car">₹--</div>
+                            </div>
+                            <div class="vehicle-card" data-type="auto" data-multiplier="12">
+                                <div class="v-icon">🛺</div>
+                                <div class="v-details">
+                                    <h4>Auto Rickshaw</h4>
+                                    <p>Quick & affordable</p>
+                                </div>
+                                <div class="v-price" id="price-auto">₹--</div>
+                            </div>
+                            <div class="vehicle-card" data-type="bike" data-multiplier="8">
+                                <div class="v-icon">🛵</div>
+                                <div class="v-details">
+                                    <h4>Moto</h4>
+                                    <p>Beat the traffic</p>
+                                </div>
+                                <div class="v-price" id="price-bike">₹--</div>
+                            </div>
+                        </div>
+                        <button id="book-btn" class="primary-btn">Book <span id="selected-vehicle-name">Prime Sedan</span></button>
+                    </div>
+                </div>
+
+                <div id="ride-status-user" class="panel hidden">
+                    <h3>Ride Status</h3>
+                    <p id="user-status-text">Waiting for a driver...</p>
+                    <div class="progress-bar"><div class="progress" id="user-progress"></div></div>
+                    <p class="driver-info" id="assigned-driver-info"></p>
+                    <div class="fare-final">
+                        <p>Total Fare: <strong id="final-fare-amount">₹0</strong></p>
+                    </div>
+                    <button id="pay-btn" class="primary-btn hidden">Pay via UPI</button>
+                </div>
+            </div>
+
+            <!-- Driver Dashboard -->
+            <div id="driver-dashboard" class="dashboard-card hidden">
+                <div class="header">
+                    <h2>Driver Console</h2>
+                    <button class="logout-btn">Logout</button>
+                </div>
+                
+                <div id="driver-idle" class="panel active">
+                    <div class="status-indicator online"></div>
+                    <p>You are online and waiting for requests.</p>
+                    <div id="incoming-requests">
+                        <p class="empty-state">No ride requests yet.</p>
+                    </div>
+                </div>
+
+                <div id="driver-active" class="panel hidden">
+                    <h3>Current Ride</h3>
+                    <p id="driver-status-text">Heading to pickup...</p>
+                    <div class="action-buttons">
+                        <button id="arrive-btn" class="secondary-btn">Arrived at Pickup</button>
+                        <button id="start-ride-btn" class="primary-btn hidden">Start Ride</button>
+                        <button id="complete-ride-btn" class="primary-btn hidden">Complete Ride</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
